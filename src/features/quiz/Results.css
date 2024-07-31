@@ -1,0 +1,49 @@
+.bg-custom-dark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Ensure the section takes the full viewport height */
+    background-color: #343a40 !important;
+    color: #f8f9fa !important;
+}
+
+.card {
+    background-color: transparent;
+    border: none;
+}
+
+.custom-rounded {
+    border-radius: 0.25rem !important;
+    padding: 6rem !important;
+    width: 52%; /* Ensure it takes full width of its parent container */
+    max-width: 500px; /* Set a max width for the content */
+}
+
+.bg-custom-success {
+    background-color: #28a745 !important;
+}
+
+.bg-custom-danger {
+    background-color: #dc3545 !important;
+}
+
+.btn-custom-light {
+    background-color: #f8f9fa;
+}
+
+.btn-custom-light:hover {
+    background-color: #444545;
+    color:#fff;
+    font-weight: bolder;
+}
+
+.btn-custom {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    opacity: 0.9;
+}

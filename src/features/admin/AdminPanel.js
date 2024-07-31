@@ -37,7 +37,7 @@ const AdminPanel = () => {
   return (
     <div className="container admin-container">
       <div className="admin-box">
-        <h1>Admin Panel</h1>
+        <h1 className='heading'>Admin Panel</h1>
         <div className="form-group">
           <label>Question Type:</label>
           <select value={questionType} onChange={(e) => setQuestionType(e.target.value)} className="form-control">
@@ -65,12 +65,12 @@ const AdminPanel = () => {
               />
             </div>
           ))}
-          <button type="button" onClick={handleAddIncorrectAnswer} className="btn btn-secondary">
+          <button type="button" onClick={handleAddIncorrectAnswer} className="btn btn-incorrect">
             Add Incorrect Answer
           </button>
         </div>
         <div className="button-group">
-          <button type="button" onClick={handleAddQuestion} className="btn btn-primary">
+          <button type="button" onClick={handleAddQuestion} className="btn btn-add">
             Add Question
           </button>
           <Link to="/quiz">

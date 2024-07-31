@@ -1,73 +1,80 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuestions, nextQuestion, resetQuiz } from './quizSlice';
 import { useNavigate } from 'react-router-dom';
+import './Quiz.css'; // Updated Quiz.css
 
 const Quiz = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { questions, currentQuestionIndex, status, error } = useSelector((state) => state.quiz);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { questions, currentQuestionIndex, status, error } = useSelector((state) => state.quiz);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchQuestions());
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchQuestions());
+        }
+    }, [status, dispatch]);
+
+    const handleAnswerSubmit = () => {
+        dispatch(nextQuestion(selectedAnswer));
+        setSelectedAnswer(null);
+        if (currentQuestionIndex + 1 === questions.length) {
+            navigate('/results');
+        }
+    };
+
+    if (status === 'loading') {
+        return <div className="loading-container"><div className="loader"></div>Loading...</div>;
     }
-  }, [status, dispatch]);
 
-  const handleAnswerSubmit = () => {
-    dispatch(nextQuestion(selectedAnswer));
-    setSelectedAnswer(null);
-    if (currentQuestionIndex + 1 === questions.length) {
-      navigate('/results');
+    if (status === 'failed') {
+        return <div className="error-container"><div className="error-icon"></div>Error: {error}</div>;
     }
-  };
 
-  if (status === 'loading') {
-    return <div className="loading">Loading...</div>;
-  }
+    if (questions.length === 0) {
+        return null;
+    }
 
-  if (status === 'failed') {
-    return <div className="error">Error: {error}</div>;
-  }
+    const currentQuestion = questions[currentQuestionIndex];
 
-  if (questions.length === 0) {
-    return null;
-  }
+    return (
+        <section className="quiz-section">
+            <div className="container">
+                <div className="row align-items-center justify-content-center">
+                    <div className="col-lg-8">
+                        <div className="quiz-card">
+                            <div className="d-flex justify-content-between align-items-center">
+                                <h5 className='question-text'>{currentQuestion?.question}</h5>
+                                <h5 className="question-counter">
+                                    {currentQuestionIndex + 1} / {questions.length}
+                                </h5>
+                            </div>
+                            <div className="options-container">
+                                {currentQuestion?.incorrect_answers.concat(currentQuestion.correct_answer).sort().map((item, index) => (
+                                    <button
+                                        key={index}
+                                        className={`option-button ${selectedAnswer === item && 'selected-answer'}`}
+                                        onClick={() => setSelectedAnswer(item)}
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
+                            </div>
 
-  const currentQuestion = questions[currentQuestionIndex];
-
-  return (
-    <div className="container">
-      <h1>Quiz</h1>
-      <h2 dangerouslySetInnerHTML={{ __html: currentQuestion.question }} />
-      <form>
-        <ul className="list-group mb-5">
-          {[...currentQuestion.incorrect_answers, currentQuestion.correct_answer].sort().map((answer, idx) => (
-            <li key={idx} className="list-group-item">
-              <input
-                type="checkbox"
-                id={`answer-${idx}`}
-                name="answer"
-                value={answer}
-                checked={selectedAnswer === answer}
-                onChange={() => setSelectedAnswer(answer)}
-              />
-              <label htmlFor={`answer-${idx}`} dangerouslySetInnerHTML={{ __html: answer }} />
-            </li>
-          ))}
-        </ul>
-        <button
-          type="button"
-          className="btn btn-success"
-          onClick={handleAnswerSubmit}
-          disabled={selectedAnswer === null}
-        >
-          Next
-        </button>
-      </form>
-    </div>
-  );
+                            <button 
+                                className={`submit-button ${!selectedAnswer && 'disabled-button'}`} 
+                                onClick={handleAnswerSubmit} 
+                                disabled={!selectedAnswer}
+                            >
+                                {(currentQuestionIndex + 1) !== questions.length ? 'Next Question' : 'Show Result'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default Quiz;

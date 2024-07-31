@@ -15,7 +15,7 @@ const Login = () => {
   return (
     <div className="container login-container">
       <div className="login-box">
-        <h1>Login</h1>
+        <h1 className='h1'>Login</h1>
         <div className="form-group">
           <label>Username:</label>
           <input
@@ -34,7 +34,7 @@ const Login = () => {
             className="form-control"
           />
         </div>
-        <button type="button" onClick={handleLogin} className="btn btn-primary">
+        <button type="button" onClick={handleLogin} className="btn btn-login">
           Login
         </button>
       </div>

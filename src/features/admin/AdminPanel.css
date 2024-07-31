@@ -1,13 +1,11 @@
-/* AdminPanel.css */
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
-  }
-  
-  .container {
+}
+
+.container {
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
@@ -15,57 +13,62 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
-  }
-  
-  .admin-container {
+}
+
+.admin-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-  
-  .admin-box {
+}
+.heading{
+  color: #fff;
+}
+
+.admin-box {
     width: 100%;
     max-width: 600px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #3d3d3d;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-  }
-  
-  h1 {
+    color: #fff;
+    border-color: #646464;
+}
+
+h1 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #343a40;
-  }
-  
-  .form-group {
+    color: #60d600;
+}
+
+.form-group {
     margin-bottom: 15px;
     text-align: left;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-  }
-  
-  .form-control {
+}
+
+.form-control {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ced4da;
     border-radius: 5px;
     box-sizing: border-box;
-  }
-  
-  .button-group {
+}
+
+.button-group {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-  }
-  
-  .btn {
+}
+
+.btn {
     display: inline-block;
     padding: 10px 20px;
     font-size: 1rem;
@@ -73,32 +76,32 @@ body {
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
+}
+
+.btn-add {
+    background-color: #ff0037;
     color: white;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  .btn-secondary {
+}
+
+.btn-add:hover {
+    background-color: #1f2022;
+}
+
+.btn-incorrect {
     background-color: #6c757d;
     color: white;
-  }
-  
-  .btn-secondary:hover {
+    margin-left: 180px;
+}
+
+.btn-incorrect:hover {
     background-color: #5a6268;
-  }
-  
-  .btn-green {
+}
+
+.btn-green {
     background-color: #28a745;
     color: white;
-  }
-  
-  .btn-green:hover {
+}
+
+.btn-green:hover {
     background-color: #218838;
-  }
-  
+}
