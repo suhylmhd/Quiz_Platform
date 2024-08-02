@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -8,8 +8,15 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-
-    navigate('/');
+    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const user = existingUsers.find(user => user.username === username && user.password === password);
+  
+    if (user) {
+      alert('Login successful!');
+      navigate('/');
+    } else {
+      alert('Invalid username or password!');
+    }
   };
 
   return (
@@ -37,6 +44,9 @@ const Login = () => {
         <button type="button" onClick={handleLogin} className="btn btn-login">
           Login
         </button>
+        <Link to="/register">
+          <button className=" btn btn-register">Create Account</button>
+        </Link>
       </div>
     </div>
   );

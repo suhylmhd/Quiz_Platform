@@ -8,6 +8,7 @@ import Results from './features/quiz/Results';
 import AdminPanel from './features/admin/AdminPanel';
 import Login from './components/Login';
 import './styles.css'; 
+import Register from './components/Register';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/results" element={<Results />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
       </Router>

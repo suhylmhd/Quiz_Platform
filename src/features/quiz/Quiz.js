@@ -9,6 +9,8 @@ const Quiz = () => {
     const navigate = useNavigate();
     const { questions, currentQuestionIndex, status, error } = useSelector((state) => state.quiz);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(false);
 
     useEffect(() => {
         if (status === 'idle') {
@@ -17,6 +19,15 @@ const Quiz = () => {
     }, [status, dispatch]);
 
     const handleAnswerSubmit = () => {
+        if (selectedAnswer) {
+            const correct = selectedAnswer === currentQuestion.correct_answer;
+            setIsCorrect(correct);
+            setIsAnswerSubmitted(true);
+        }
+    };
+
+    const handleNextQuestion = () => {
+        setIsAnswerSubmitted(false);
         dispatch(nextQuestion(selectedAnswer));
         setSelectedAnswer(null);
         if (currentQuestionIndex + 1 === questions.length) {
@@ -56,18 +67,30 @@ const Quiz = () => {
                                         key={index}
                                         className={`option-button ${selectedAnswer === item && 'selected-answer'}`}
                                         onClick={() => setSelectedAnswer(item)}
+                                        disabled={isAnswerSubmitted}  // Disable buttons after submission
                                     >
                                         {item}
                                     </button>
                                 ))}
                             </div>
 
+                            {isAnswerSubmitted && (
+                                <div className="answer-feedback">
+                                    <p className={`feedback-text ${isCorrect ? 'correct' : 'incorrect'}`}>
+                                        {isCorrect ? 'Correct!' : `Incorrect! The correct answer is: ${currentQuestion.correct_answer}`}
+                                    </p>
+                                    <p className="explanation-text">
+                                        {currentQuestion.explanation}
+                                    </p>
+                                </div>
+                            )}
+
                             <button 
                                 className={`submit-button ${!selectedAnswer && 'disabled-button'}`} 
-                                onClick={handleAnswerSubmit} 
-                                disabled={!selectedAnswer}
+                                onClick={isAnswerSubmitted ? handleNextQuestion : handleAnswerSubmit} 
+                                disabled={!selectedAnswer && !isAnswerSubmitted}
                             >
-                                {(currentQuestionIndex + 1) !== questions.length ? 'Next Question' : 'Show Result'}
+                                {isAnswerSubmitted ? (currentQuestionIndex + 1 !== questions.length ? 'Next Question' : 'Show Result') : 'Submit Answer'}
                             </button>
                         </div>
                     </div>
